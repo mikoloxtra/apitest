@@ -20,7 +20,7 @@ RUN rm -rf /var/cache/apk/*
 
 #change owner of web folder to www-data
 
-RUN chown -R 1000:www-data /var/www/
+RUN chown -R www-data:www-data /var/www/
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
