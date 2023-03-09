@@ -22,14 +22,16 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
 
-        $projects = Project::where([
-            ['name', '!=', Null],
+        $projects = Project::where(
+            [
+            ['name', '!=', null],
             [function ($query) use ($request) {
                 if (($term = $request->term)) {
                     $query->orWhere('name', 'LIKE', '%' . $term . '%')->get();
                 }
             }]
-        ])
+            ]
+        )
             ->orderBy("id", "desc")
             ->paginate(10);
         // $projects = Project::latest()->paginate(5);
@@ -51,17 +53,19 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate(
+            [
             'name' => 'required',
             'introduction' => 'required',
             'location' => 'required',
             'cost' => 'required'
-        ]);
+            ]
+        );
 
         Project::create($request->all());
 
@@ -72,7 +76,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\Project $project
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -83,7 +87,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\Project $project
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -93,18 +97,20 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Project  $project
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Project      $project
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project)
     {
-        $request->validate([
+        $request->validate(
+            [
             'name' => 'required',
             'introduction' => 'required',
             'location' => 'required',
             'cost' => 'required'
-        ]);
+            ]
+        );
         $project->update($request->all());
 
         return redirect()->route('projects.index')
@@ -113,7 +119,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Project  $project
+     * @param  \App\Models\Project $project
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
@@ -130,9 +136,11 @@ class ProjectController extends Controller
         $url = "https://api.github.com/users/kingsconsult/repos";
 
 
-        $response = $client->request('GET', $url, [
+        $response = $client->request(
+            'GET', $url, [
             'verify'  => false,
-        ]);
+            ]
+        );
         $responseBody = json_decode($response->getBody());
 
 
@@ -152,11 +160,13 @@ class ProjectController extends Controller
             'api-key' => 'k3Hy5qr73QhXrmHLXhpEh6CQ'
         ];
 
-        $response = $client->request('GET', $url, [
+        $response = $client->request(
+            'GET', $url, [
             // 'json' => $params,
             'headers' => $headers,
             'verify'  => false,
-        ]);
+            ]
+        );
 
         $responseBody = json_decode($response->getBody());
 
@@ -185,9 +195,11 @@ class ProjectController extends Controller
         $url = "https://api.github.com/users/kingsconsult/repos";
 
 
-        $response = $client->request('GET', $url, [
+        $response = $client->request(
+            'GET', $url, [
             'verify'  => false,
-        ]);
+            ]
+        );
         $responseBody = json_decode($response->getBody());
 
         
@@ -201,7 +213,6 @@ class ProjectController extends Controller
         $githubRepo = $this->paginate($responseArray)->setPath('/projects/createpagination');
 
         return view('projects.createpagination', compact('githubRepo'))
-        ->with('i', (request()->input('page', 1) - 1) * 5)
-        ;
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

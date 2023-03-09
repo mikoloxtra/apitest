@@ -49,8 +49,8 @@ class DatabaseBackup extends Command
 
         $command = "".env('DB_DUMP_PATH', 'mysqldump --no-tablespaces')." --user=" . env('DB_USERNAME') ." --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  | gzip > " . $storageAt . $filename;
 
-        $returnVar = NULL;
-        $output = NULL;
+        $returnVar = null;
+        $output = null;
         exec($command, $output, $returnVar);
     }
 }
