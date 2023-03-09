@@ -5,8 +5,8 @@ pipeline {
         stage('Linting') {
             steps {
                 sh 'composer install --no-interaction --no-progress --prefer-dist'
-                sh 'php vendor/bin/phpcs --standard=PSR2 api'
-                sh 'php vendor/bin/phpmd api text phpunit.xml'
+                sh 'php vendor/bin/phpcs --standard=PSR2 apitest'
+                sh 'php vendor/bin/phpmd apitest text phpunit.xml'
             }
         }
         stage('Test, Build and Deploy'){
