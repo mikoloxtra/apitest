@@ -30,7 +30,7 @@ RUN composer install --no-dev
 
 # Setup Nginx
 RUN rm /etc/nginx/sites-enabled/default
-COPY /nginx/apitest.conf /etc/nginx/conf.d/
+COPY /nginx/apitest.nginx.conf /etc/nginx/conf.d/
 
 COPY .env /var/www/apitest/
 
