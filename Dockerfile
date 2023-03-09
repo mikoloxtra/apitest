@@ -10,7 +10,7 @@ RUN docker-php-ext-install bcmath mbstring intl opcache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Set working directory
-WORKDIR /var/www/todo
+WORKDIR /var/www/api
 
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -22,6 +22,6 @@ RUN rm -rf /var/cache/apk/*
 
 RUN chown -R www-data:www-data /var/www/
 # Expose port 9000 and start php-fpm server
-EXPOSE 9000
+EXPOSE 9090
 CMD ["php-fpm"]
 
