@@ -21,7 +21,7 @@ services:
       MYSQL_PASSWORD: laravel
       MYSQL_ROOT_PASSWORD: laravel
     ports:
-      - "3307:3306"
+      - "4307:3306"
     volumes:
       - dbdata:/var/lib/mysql
     networks:
