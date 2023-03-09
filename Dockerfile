@@ -34,7 +34,7 @@ COPY /nginx/apitest.nginx.conf /etc/nginx/conf.d/
 
 #COPY .env /var/www/apitest/
 
-RUN chown -R www-data:www-data /var/www/app/storage/ && chmod -R 775 /var/www/app/storage && chown -R www-data:www-data bootstrap/cache && chmod -R 775 bootstrap/cache
+RUN chown -R www-data:www-data /var/www/apitest/storage/ && chmod -R 775 /var/www/apitest/storage 
 
 # Expose ports
 EXPOSE 80
