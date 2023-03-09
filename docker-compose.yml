@@ -9,7 +9,7 @@ services:
     depends_on:
       - api-db
     ports:
-      - "9090:80"
+      - "8000:80"
     networks:
       - apitest-network
   
